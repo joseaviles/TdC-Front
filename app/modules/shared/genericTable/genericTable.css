@@ -1,0 +1,14 @@
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.btn-group.clear-button {
+    position: absolute;
+    right: 5%;
+    top: 29%;
+    color: #bbb;
+}
+
+

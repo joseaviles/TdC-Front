@@ -1,0 +1,184 @@
+<div class="panel panel-info">
+    <div class="panel-heading bg-green-soft bg-font-green-soft" ng-click="resultadoOpCtrl.formCollapse()">
+        <span class="bold">{{resultadoOpCtrl.config.title}}</span>
+        <div class="panel-tools">
+            <a href="javascript:;" ng-class="resultadoOpCtrl.config.formCollapsed ? 'collapse-arrow-up': 'collapse-arrow-down'"></a>
+            <a href="javascript:;" class="reload" data-original-title="" ng-click="resultadoOpCtrl.init(); $event.stopPropagation()"></a>
+            <div class="spinner" ></div>
+        </div>
+    </div>
+    <div class="panel-body" uib-collapse="resultadoOpCtrl.config.formCollapsed">
+        <div class="well">
+            <legend>
+                <h5 class="font-blue-chambray bold">Datos reales:</h5>
+            </legend>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.date}">Fecha:</label>
+                        <div class="input-group date date-picker time-picker-label">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{::resultadoOpCtrl.format}}"
+                                ng-click="resultadoOpCtrl.open()" placeholder="DD-MM-AAAA" ng-model="resultadoOpCtrl.data.date"
+                                is-open="resultadoOpCtrl.opened" datepicker-options="resultadoOpCtrl.dateOptions"
+                                ng-required="true" current-text="{{::resultadoOpCtrl.currentText}}" close-text="{{::resultadoOpCtrl.closeText}}"
+                                clear-text="{{::resultadoOpCtrl.clearText}}" />
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" ng-click="resultadoOpCtrl.open()">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.selectedRoute}">Hora
+                            desde:</label>
+                        <div class="input-group">
+                            <div class="time-picker-spinner" uib-timepicker ng-model="resultadoOpCtrl.data.timeFrom"
+                                hour-step="resultadoOpCtrl.timeOptions.hstep" minute-step="resultadoOpCtrl.timeOptions.mstep"
+                                show-meridian="resultadoOpCtrl.isMeridian" show-spinners="resultadoOpCtrl.showSpinners"
+                                ng-required="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.selectedRoute}">Hora
+                            hasta:</label>
+                        <div class="input-group">
+                            <div class="time-picker-spinner" uib-timepicker ng-model="resultadoOpCtrl.data.timeTo"
+                                hour-step="resultadoOpCtrl.timeOptions.hstep" minute-step="resultadoOpCtrl.timeOptions.mstep"
+                                show-meridian="resultadoOpCtrl.isMeridian" show-spinners="resultadoOpCtrl.showSpinners"
+                                ng-required="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.selectedLocality}">Localidad:</label>
+                        <ui-select ng-model="resultadoOpCtrl.data.selectedLocality" theme="bootstrap" ng-required="true">
+                            <ui-select-match placeholder="Localidad">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="locality in resultadoOpCtrl.localities | filter: $select.search">
+                                <div ng-bind-html="locality.name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.selectedRoute}">Ruta:</label>
+                        <div class="input-group">
+                            <input type="text" ng-model="resultadoOpCtrl.data.selectedRoute" class="form-control"
+                                placeholder="Ruta Nº" ng-required="true">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" ng-click="resultadoOpCtrl.data.selectedRoute = undefined">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.selectedRoute}">Tipo:</label>
+                        <ui-select ng-model="resultadoOpCtrl.data.selectedRouteType" theme="bootstrap">
+                            <ui-select-match placeholder="Tipo de ruta">
+                                {{$select.selected.name}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="route in (resultadoOpCtrl.routeTypes | filter: $select.search) track by route.id">
+                                <span ng-bind-html="route.name | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+            </div>
+            <legend>
+                <h5 class="font-blue-chambray bold">Vehículos:</h5>
+            </legend>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.selectedRoute}">Inscriptos:</label>
+                        <div class="input-group">
+                            <input type="text" ng-model="resultadoOpCtrl.data.vehiculos.inscriptos" class="form-control"
+                                ng-change="resultadoOpCtrl.updateVehiculos()" placeholder="Nº" ng-required="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.selectedRoute}">Vacíos:</label>
+                        <div class="input-group">
+                            <input type="text" ng-model="resultadoOpCtrl.data.vehiculos.vacios" class="form-control"
+                                ng-change="resultadoOpCtrl.updateVehiculos()" placeholder="Nº" ng-required="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.selectedRoute}">Otras
+                            jurid.:</label>
+                        <div class="input-group">
+                            <input type="text" ng-model="resultadoOpCtrl.data.vehiculos.interjuridiccionales" class="form-control"
+                                ng-change="resultadoOpCtrl.updateVehiculos()" placeholder="Nº" ng-required="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label">Total:</label>
+                        <div class="input-group">
+                            <input type="text" ng-model="resultadoOpCtrl.data.vehiculos.total" class="form-control"
+                                placeholder="Nº">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <legend>
+                <h5 class="font-blue-chambray bold">Actas:</h5>
+            </legend>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.selectedRoute}">Digitales:</label>
+                        <input type="text" ng-model="resultadoOpCtrl.data.actas.digitales" class="form-control"
+                            ng-change="resultadoOpCtrl.updatesActas()" placeholder="Nº" ng-required="true">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <label class="control-label" ng-class="{'required-field' : !resultadoOpCtrl.data.selectedRoute}">Manuales:</label>
+                        <input type="text" ng-model="resultadoOpCtrl.data.actas.manuales" class="form-control"
+                            ng-change="resultadoOpCtrl.updatesActas()" placeholder="Nº" ng-required="true">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 col-lg-offset-3 col-md-offset-3 col-sm-offset-3">
+                    <div class="form-group">
+                        <label class="control-label">Total:</label>
+                        <input type="text" ng-model="resultadoOpCtrl.data.actas.total" class="form-control" placeholder="Nº"
+                            readonly">
+
+                    </div>
+                </div>
+            </div>
+            <legend>
+                <h5 class="font-blue-chambray bold">Descripción del operativo:</h5>
+            </legend>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group last">
+                        <textarea rows="6" ng-model="resultadoOpCtrl.data.observations" class="form-control text-area"
+                            placeholder="Observaciones relacionadas con el operativo"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

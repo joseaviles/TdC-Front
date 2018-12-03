@@ -1,0 +1,34 @@
+<div class="portlet box" ng-class="::consultaOpCtrl.config.headerColor">
+    <div class="portlet-title">
+        <div class="caption">
+            <i ng-class="::consultaOpCtrl.config.icon"></i>{{::consultaOpCtrl.config.title}} </div>
+        <div class="tools">
+            <a href="javascript:;" ng-click="consultaOpCtrl.formCollapse()" ng-class="consultaOpCtrl.formCollapsed ? 'collapse-arrow-up': 'collapse-arrow-down'"
+                data-toggle="collapse" data-target="#input-form"></a>
+            <a href="javascript:;" class="reload" data-original-title="" title="" ng-click="consultaOpCtrl.init()">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body form collapse in" id="input-form">
+        <form ng-submit="consultaOpCtrl.submit()" name="formOperativos" class="form-horizontal form-row-seperated">
+            <div class="form-body">
+                <div class="panel-group">
+                    <ficha-operativo-component config="consultaOpCtrl.fichaConfig" , data="consultaOpCtrl.fichaData"></ficha-operativo-component>
+                    <fieldset ng-disabled="true">
+                        <recursos-operativo-component config="consultaOpCtrl.recursosConfig" , data="consultaOpCtrl.recursosData"></recursos-operativo-component>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="form-actions" ng-if="consultaOpCtrl.config.showButtons">
+                <div class="row">
+                    <div class="col-lg-offset-10 col-md-offset-8 col-sm-offset-8 col-xs-offset-4">
+                        <button type="{{consultaOpCtrl.config.button1.type}}" ng-class="consultaOpCtrl.config.button1.class"
+                            ng-disabled="{{consultaOpCtrl.config.button1.disabled}}" ng-if="consultaOpCtrl.config.button1.visible">
+                            <i ng-class="consultaOpCtrl.config.button1.icon"></i>{{consultaOpCtrl.config.button1.title}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

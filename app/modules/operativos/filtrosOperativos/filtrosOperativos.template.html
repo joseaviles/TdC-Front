@@ -1,0 +1,110 @@
+<div class="portlet box" ng-class="filtrosOpCtrl.config.headerColor">
+        <div class="portlet-title">
+            <div class="caption">
+                <i ng-class="filtrosOpCtrl.config.icon"></i>{{filtrosOpCtrl.config.title}}</div>
+            <div class="tools">
+                <a href="javascript:;" ng-click="filtrosOpCtrl.filtersCollapse()" ng-class="filtrosOpCtrl.filtersCollapsed ? 'collapse-arrow-up': 'collapse-arrow-down'"
+                    data-toggle="collapse" data-target="#filter-form">
+                </a>
+                <a href="javascript:;" class="reload" data-original-title="" title="" ng-click="filtrosOpCtrl.initFilters()">
+                </a>
+            </div>
+        </div>
+        <div class="portlet-body form collapse in" id="filter-form">
+            <form action="#" class="form-horizontal form-row-seperated">
+                <div class="form-body">
+                    <div class="form-group">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <label class="control-label">Fecha desde:</label>
+                            <div class="input-group date date-picker">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{::filtrosOpCtrl.format}}"
+                                    placeholder="Seleccione una fecha" ng-model="filtrosOpCtrl.dateFrom" is-open="filtrosOpCtrl.openedFrom"
+                                    datepicker-options="filtrosOpCtrl.dateOptionsFrom" ng-required="true" current-text="{{::filtrosOpCtrl.currentText}}"
+                                    close-text="{{::filtrosOpCtrl.closeText}}" clear-text="{{::filtrosOpCtrl.clearText}}" />
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button" ng-click="filtrosOpCtrl.openFrom()">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <label class="control-label">Fecha hasta:</label>
+                            <div class="input-group date date-picker">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{::filtrosOpCtrl.format}}"
+                                    placeholder="Seleccione una fecha" ng-model="filtrosOpCtrl.dateTo" is-open="filtrosOpCtrl.openedTo"
+                                    datepicker-options="filtrosOpCtrl.dateOptionsTo" ng-required="true" current-text="{{::filtrosOpCtrl.currentText}}"
+                                    close-text="{{::filtrosOpCtrl.closeText}}" clear-text="{{::filtrosOpCtrl.clearText}}" />
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button" ng-click="filtrosOpCtrl.openTo()">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <label class="control-label">Código:</label>
+                            <div class="input-group">
+                                <input type="text" ng-model="filtrosOpCtrl.selectedCode" class="form-control" placeholder="Código Nº">
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button" ng-click="filtrosOpCtrl.selectedCode = undefined"
+                                        class="btn btn-default">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group last">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <label class="control-label">Localidad:</label>
+                            <div class="input-group">
+                                <ui-select ng-model="filtrosOpCtrl.selectedLocality" theme="bootstrap">
+                                    <ui-select-match placeholder="Localidad">
+                                        {{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="locality in (filtrosOpCtrl.localities | filter: $select.search) track by locality.id">
+                                        <span ng-bind-html="locality.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button" ng-click="filtrosOpCtrl.selectedLocality = undefined"
+                                        class="btn btn-default">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <label class="control-label">Estado:</label>
+                            <div class="input-group">
+                                <ui-select ng-model="filtrosOpCtrl.selectedState" theme="bootstrap">
+                                    <ui-select-match placeholder="Estado">
+                                        {{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="state in (filtrosOpCtrl.states | filter: $select.search) track by state.id">
+                                        <span ng-bind-html="state.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button" ng-click="filtrosOpCtrl.selectedState = undefined"
+                                        class="btn btn-default">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-lg-offset-10 col-md-offset-10 col-sm-offset-10 col-xs-offset-8">
+                                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filter-form"
+                                    ng-click="filtrosOpCtrl.applyFilters()">
+                                    <i class="fa fa-search"></i> Buscar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

@@ -1,0 +1,47 @@
+<div class="panel panel-info">
+    <div class="panel-heading bg-green-soft bg-font-green-soft" ng-click="recursosOpCtrl.formCollapse()">
+        <span class="bold">{{recursosOpCtrl.config.title}}</span>
+        <div class="panel-tools">
+            <a href="javascript:;" ng-class="recursosOpCtrl.config.formCollapsed ? 'collapse-arrow-up': 'collapse-arrow-down'"></a>
+        </div>
+    </div>
+    <div class="panel-body" uib-collapse="recursosOpCtrl.config.formCollapsed">
+        <div class="form-group">
+            <label class="control-label col-lg-2 col-md-2 col-sm-2">Inspectores:</label>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <ui-select multiple ng-model="recursosOpCtrl.data.selectedInspectors" theme="bootstrap" ng-disabled="formOpCtrl.config.disableControls">
+                    <ui-select-match placeholder="Inspectores">
+                        {{$item.name}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="inspector in (recursosOpCtrl.inspectors | filter: $select.search) track by inspector.id">
+                        <span ng-bind-html="inspector.name | highlight: $select.search"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+            <label class="control-label col-lg-2 col-md-2 col-sm-2">Dispositivos:</label>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <ui-select multiple ng-model="recursosOpCtrl.data.selectedDevices" theme="bootstrap" ng-disabled="formOpCtrl.config.disableControls">
+                    <ui-select-match placeholder="Dispositivos">
+                        {{$item.name}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="device in (recursosOpCtrl.devices | filter: $select.search) track by device.id">
+                        <span ng-bind-html="device.name | highlight: $select.search"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+        <div class="form-group last">
+            <label class="control-label col-lg-2 col-md-2 col-sm-2">Vehículos:</label>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <ui-select multiple ng-model="recursosOpCtrl.data.selectedVehicles" theme="bootstrap" ng-disabled="formOpCtrl.config.disableControls">
+                    <ui-select-match placeholder="Vehículos">
+                        {{$item.name}}
+                    </ui-select-match>
+                    <ui-select-choices repeat="vehicle in (recursosOpCtrl.vehicles | filter: $select.search) track by vehicle.id">
+                        <span ng-bind-html="vehicle.name | highlight: $select.search"></span>
+                    </ui-select-choices>
+                </ui-select>
+            </div>
+        </div>
+    </div>
+</div>

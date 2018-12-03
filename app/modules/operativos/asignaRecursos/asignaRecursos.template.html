@@ -1,0 +1,37 @@
+<div class="portlet box" ng-class="::asignaCtrl.config.headerColor">
+    <div class="portlet-title">
+        <div class="caption">
+            <i ng-class="::asignaCtrl.config.icon"></i>{{::asignaCtrl.config.title}} </div>
+        <div class="tools">
+            <a href="javascript:;" ng-click="asignaCtrl.formCollapse()" ng-class="asignaCtrl.formCollapsed ? 'collapse-arrow-up': 'collapse-arrow-down'"
+                data-toggle="collapse" data-target="#input-form"></a>
+            <a href="javascript:;" class="reload" data-original-title="" title="" ng-click="asignaCtrl.init()">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body form collapse in" id="input-form">
+        <form ng-submit="asignaCtrl.submit()" name="formOperativos" class="form-horizontal form-row-seperated">
+            <div class="form-body">
+                <div class="panel-group">
+                    <ficha-operativo-component config="asignaCtrl.fichaConfig" , data="asignaCtrl.fichaData"></ficha-operativo-component>
+                    <recursos-operativo-component config="asignaCtrl.recursosConfig" , data="asignaCtrl.recursosData"></recursos-operativo-component>                     
+                </div>
+            </div>
+            <div class="form-actions" ng-if="asignaCtrl.config.showButtons">
+                <div class="row">
+                    <div class="col-lg-offset-9 col-md-offset-8 col-sm-offset-8 col-xs-offset-4">
+                        <button type="{{asignaCtrl.config.button1.type}}" ng-class="asignaCtrl.config.button1.class"
+                            ng-disabled="{{asignaCtrl.config.button1.disabled}}" ng-if="asignaCtrl.config.button1.visible">
+                            <i ng-class="asignaCtrl.config.button1.icon"></i>{{asignaCtrl.config.button1.title}}
+                        </button>
+                        <button type="{{asignaCtrl.config.button2.type}}" ng-class="asignaCtrl.config.button2.class"
+                            ng-disabled="{{asignaCtrl.config.button2.disabled}}" ng-if="asignaCtrl.config.button2.visible"
+                            ng-click="asignaCtrl.config.button2.action()">
+                            <i ng-class="asignaCtrl.config.button2.icon"></i>{{asignaCtrl.config.button2.title}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

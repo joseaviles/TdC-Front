@@ -1,0 +1,119 @@
+<div class="portlet box" ng-class="::tableCtrl.config.dataToShow.headerColor">
+    <div class="portlet-title">
+        <div class="caption">
+            <i ng-class='::tableCtrl.config.dataToShow.icon'></i>
+            <span class="caption-subject">{{::tableCtrl.config.dataToShow.title}}</span>
+        </div>
+    </div>
+    <div class="portlet-body form collapse in" id="input-form">
+        <div class="form-body">
+            <div class="table-toolbar">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <span ng-repeat="action in tableCtrl.config.headerActions track by action.name" ng-if="action.visible">
+                            <div class="btn-group">
+                                <button id="" class="btn sbold green" ng-click="action.function()"> {{::action.title}}
+                                    &nbsp
+                                    <i class={{::action.icon}}></i>
+                                </button>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="btn-group pull-right">
+                            <button class="btn green  btn-outline dropdown-toggle" data-toggle="dropdown" ng-if="tableCtrl.config.showTools">Herramientas
+                                <i class="fa fa-angle-down"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right">
+                                <li ng-repeat="tool in tableCtrl.config.tools" ng-if="tool.visible">
+                                    <a href="{{::tool.link}}">
+                                        <i class="{{::tool.icon}}"></i> {{::tool.desc}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-bordered table-hover order-column" id="sample_1">
+                <thead>
+                    <tr ng-if="tableCtrl.config.showSearchBar || tableCtrl.config.showPageSize">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-6" ng-if="tableCtrl.config.showPageSize">
+                                Mostrar:
+                                <select ng-options="item.value for item in tableCtrl.config.pagination" ng-model="tableCtrl.selectedPageSize"
+                                    ng-change="tableCtrl.setPageSize()" name="pageSize" class="form-control input-sm input-xsmall input-inline">
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6" ng-if="tableCtrl.config.showSearchBar">
+                                <label class="pull-right">
+                                    Buscar:
+                                    <div class="btn-group">
+                                        <input type="search" class="form-control input-sm input-small input-inline"
+                                            placeholder="" ng-model="tableCtrl.query" />
+                                        <a ng-if="tableCtrl.query.length" ng-click="tableCtrl.clearSearch()" class="fas fa-times btn-group clear-button">
+                                        </a>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </tr>
+                    <tr>
+                        <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1" ng-if="tableCtrl.config.dataToShow.showChecks">
+                            <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                                <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"
+                                    ng-click="tableCtrl.checkAll()" />
+                                <span></span>
+                            </label>
+                        </th>
+                        <th ng-repeat="col in tableCtrl.config.dataToShow.columns" ng-if="col.visible" ng-click="tableCtrl.sortBy(col.name)"
+                            ng-class="col.name=='Actions' ? 'col-lg-2 col-md-2 col-sm-2 col-xs-2 text-center' : ''">{{::col.title}}
+                            <i class="fas" ng-class="tableCtrl.getIcon(col.name)"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="value in tableCtrl.filteredItems = (tableCtrl.data                 
+                | filter: tableCtrl.query != undefined ? tableCtrl.query : undefined )
+                | orderBy : tableCtrl.column : tableCtrl.reverse
+                | start: (tableCtrl.currentPage - 1) * tableCtrl.itemsPerPage 
+                | limitTo: tableCtrl.itemsPerPage                
+                track by $index">
+                        <td ng-if="tableCtrl.config.dataToShow.showChecks">
+                            <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                                <input type="checkbox" class="checkboxes" ng-checked="tableCtrl.checked" />
+                                <span></span>
+                            </label>
+                        </td>
+                        <td ng-repeat="col in tableCtrl.config.dataToShow.columns">
+                            <div ng-switch on="col.name">
+                                <div ng-switch-when="Actions" class="text-center">
+                                    <button ng-repeat="action in tableCtrl.config.dataToShow.actions" type="button"
+                                        class="btn green btn-xs" ng-click="action.function(value)" ng-switch on="action.dynamic">
+                                        <i ng-switch-when="true" ng-class="action.getIcon(value.habilitado)"
+                                            tooltip-placement="top" uib-tooltip="{{action.getTooltip(value.habilitado)}}"></i>
+                                        <i ng-switch-default ng-class="action.icon" tooltip-placement="top" uib-tooltip="{{action.title}}"></i>
+                                    </button>
+                                </div>
+                                <div ng-switch-default>
+                                    {{tableCtrl.getData(value, col.name)}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row vertical-align">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <span class="align-middle">Mostrando {{tableCtrl.getTotalItemsOnPage()}} registros de
+                        {{tableCtrl.data.length}}</span>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right">
+                    <ul uib-pagination total-items="tableCtrl.filteredItems.length" items-per-page="tableCtrl.itemsPerPage"
+                        class="pagination-sm pull-right" ng-model="tableCtrl.currentPage" previous-text="&lsaquo;"
+                        next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

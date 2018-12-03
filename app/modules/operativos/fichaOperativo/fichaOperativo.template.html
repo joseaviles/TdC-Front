@@ -1,0 +1,58 @@
+<div class="panel panel-info">
+    <div class="panel-heading bg-green-soft bg-font-green-soft" ng-click="fichaOpCtrl.formCollapse()">
+        <span class="bold">{{fichaOpCtrl.config.title}}</span>
+        <div class="panel-tools">
+            <a href="javascript:;" ng-class="fichaOpCtrl.config.formCollapsed ? 'collapse-arrow-up': 'collapse-arrow-down'"></a>
+        </div>
+    </div>
+    <div class="panel-body" uib-collapse="fichaOpCtrl.config.formCollapsed">
+        <div class="form-group">
+            <label class="control-label col-lg-2 col-md-2 col-sm-2">Código:</label>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <div class="input-group">
+                    <input type="text" ng-model="fichaOpCtrl.data.operativeId" class="form-control" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-2 col-md-2 col-sm-2">Estado:</label>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <div class="input-group">
+                    <input type="text" ng-model="fichaOpCtrl.data.state" class="form-control" readonly>
+                </div>
+            </div>
+            <label class="control-label col-lg-2 col-md-2 col-sm-2">Fecha:</label>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <div class="input-group">
+                    <input type="text" ng-model="fichaOpCtrl.data.date" class="form-control" readonly>
+                </div>
+            </div>
+            <label class="control-label col-lg-2 col-md-2 col-sm-2">Horario:</label>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <div class="input-group">
+                    <input type="text" ng-model="fichaOpCtrl.data.time" class="form-control" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="form-group last">
+            <label class="control-label col-lg-2 col-md-2 col-sm-2">Localidad:</label>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <div class="input-group">
+                    <input type="text" ng-model="fichaOpCtrl.data.locality" class="form-control" readonly>
+                </div>
+            </div>
+            <label class="control-label col-lg-2 col-md-2 col-sm-2">Tipo de Ruta:</label>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <div class="input-group">
+                    <input type="text" ng-model="fichaOpCtrl.data.routeType" class="form-control" readonly>
+                </div>
+            </div>
+            <label class="control-label col-lg-2 col-md-2 col-sm-2">Ruta:</label>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <div class="input-group">
+                    <input type="text" ng-model="fichaOpCtrl.data.route" class="form-control" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

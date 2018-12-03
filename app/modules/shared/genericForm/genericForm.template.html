@@ -1,0 +1,38 @@
+<div class="portlet box" ng-class="::formCtrl.config.headerColor">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="{{formCtrl.config.icon}}"></i>{{formCtrl.config.formTitle}} </div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            <a href="javascript:;" class="reload" data-original-title="" title=""> </a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <form action="#" id="" class="form-horizontal form-bordered">
+            <div class="form-body">
+                <div class="form-group" ng-repeat="field in formCtrl.config.fields" ng-hide="!field.editable && formCtrl.selected == undefined">
+                    <label class="label-form col-lg-3 col-md-3 col-sm-2 col-xs-2 control-label">
+                        {{field.title}}</label>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-9">
+                        <input id="{{field.name}}" type="text" value="{{formCtrl.selected ? formCtrl.getDataToShow(field.name) : field.defaultValue}}" name=""
+                            class="form-control" ng-readonly="!field.editable">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-lg-offset-9 col-md-offset-8 col-sm-offset-8 col-xs-offset-5">
+                            <span ng-repeat="action in formCtrl.config.actions">
+                                <div class="btn-group ">
+                                    <button type="{{action.type}}" class="pull-right" ng-class="action.class" ng-click="action.function()">
+                                        <i ng-if=action.icon class="{{action.icon}}"></i>
+                                        {{action.title}}
+                                    </button>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

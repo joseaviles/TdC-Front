@@ -1,0 +1,18 @@
+.btn-group.clear-button {
+    position: absolute;
+    right: 5%;
+    top: 29%;
+    color: #bbb;
+}
+
+.collapse-arrow-down {
+    background-image: url(../../../../assets/global/img/portlet-collapse-icon-white.png);
+    width: 14px;
+    visibility: visible;
+}
+
+.collapse-arrow-up {
+    background-image: url(../../../../assets/global/img/portlet-expand-icon-white.png);
+    width: 14px;
+    visibility: visible;
+}

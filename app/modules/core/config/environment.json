@@ -1,0 +1,21 @@
+{
+    "ambientes": {
+        "desarrollo": {
+            "apiUrlBase": "http://localhost:88/api/",
+            "cidi": "http://localhost:88/api/cidiDesa"
+        },
+        "produccion": {
+            "apiUrlBase": "prod",
+            "cidi": "cidiProd"
+        },
+        "seleccionado": "desarrollo"
+    },
+    "logueo": {
+        "info": true,
+        "log": true,
+        "error": true,
+        "debug": true,
+        "warn": true
+    },
+    "comentarios": "Archivo json con las configuraciones de los distintos ambientes"
+}

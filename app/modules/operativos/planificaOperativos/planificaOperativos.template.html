@@ -1,0 +1,185 @@
+<bread-crumb-component></bread-crumb-component>
+<form-operativos-component></form-operativos-component>
+<!-- <div class="portlet box" ng-class="::planificaOpCtrl.config.headerColor">
+    <div class="portlet-title">
+        <div class="caption">
+            <i ng-class="::planificaOpCtrl.config.icon"></i>{{::planificaOpCtrl.config.title}} </div>
+        <div class="tools">
+            <a href="javascript:;" ng-click="planificaOpCtrl.formCollapse()" ng-class="planificaOpCtrl.formCollapsed ? 'collapse-arrow-up': 'collapse-arrow-down'"
+                data-toggle="collapse" data-target="#input-form"></a>
+            <a href="javascript:;" class="reload" data-original-title="" title="" ng-click="planificaOpCtrl.init()">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body form collapse in" id ="input-form">
+        <form action="#" class="form-horizontal form-row-seperated">
+            <div class="form-body">
+                <div ng-if="planificaOpCtrl.data.operativeId != 0" class="form-group">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">Código:</label>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="input-group">
+                            <input type="text" ng-model="planificaOpCtrl.data.operativeId" class="form-control"
+                                readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">Fecha:</label>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="input-group date date-picker">
+                            <input type="text" class="form-control" uib-datepicker-popup="{{::planificaOpCtrl.format}}"
+                                placeholder="Seleccione una fecha" ng-model="planificaOpCtrl.data.date" is-open="planificaOpCtrl.opened"
+                                datepicker-options="planificaOpCtrl.dateOptions" ng-required="true" current-text="{{::planificaOpCtrl.currentText}}"
+                                close-text="{{::planificaOpCtrl.closeText}}" clear-text="{{::planificaOpCtrl.clearText}}" />
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" ng-click="planificaOpCtrl.open()">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </button>
+                            </span>
+                        </div>
+                        
+                    </div>
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">Localidad:</label>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="input-group">
+                            <ui-select ng-model="planificaOpCtrl.data.selectedLocality" theme="bootstrap">
+                                <ui-select-match placeholder="Localidad">
+                                    {{$select.selected.name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="locality in (planificaOpCtrl.localities | filter: $select.search) track by locality.id">
+                                    <span ng-bind-html="locality.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" ng-click="planificaOpCtrl.selectedLocality = undefined">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">Tipo de Ruta:</label>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="input-group">
+                            <ui-select ng-model="planificaOpCtrl.data.selectedRouteType" theme="bootstrap">
+                                <ui-select-match placeholder="Tipo de ruta">
+                                    {{$select.selected.name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="route in (planificaOpCtrl.routeTypes | filter: $select.search) track by route.id">
+                                    <span ng-bind-html="route.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" ng-click="planificaOpCtrl.selectedRouteType = undefined">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">Ruta:</label>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="input-group">
+                            <input type="text" ng-model="planificaOpCtrl.data.selectedRoute" class="form-control"
+                                placeholder="Ruta Nº">
+                            <span class="input-group-btn">
+                                <button class="btn default" type="button" ng-click="planificaOpCtrl.selectedRoute = undefined">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2 time-picker-label">Hora desde:</label>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="input-group">
+                            <div class="time-picker-spinner" uib-timepicker ng-model="planificaOpCtrl.data.timeFrom"
+                                hour-step="planificaOpCtrl.timeOptions.hstep" minute-step="planificaOpCtrl.timeOptions.mstep"
+                                show-meridian="planificaOpCtrl.isMeridian" show-spinners="planificaOpCtrl.showSpinners"></div>
+                        </div>
+                    </div>
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2 time-picker-label">Hora hasta:</label>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="input-group">
+                            <div class="time-picker-spinner" uib-timepicker ng-model="planificaOpCtrl.data.timeTo"
+                                hour-step="planificaOpCtrl.timeOptions.hstep" minute-step="planificaOpCtrl.timeOptions.mstep"
+                                show-meridian="planificaOpCtrl.isMeridian" show-spinners="planificaOpCtrl.showSpinners"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group last">
+                    <label class="control-label col-lg-2 col-md-2 col-sm-2">Observaciones:</label>
+                    <div class="col-lg-10 col-md-10 col-sm-10">
+                        <textarea rows="4" ng-model="planificaOpCtrl.data.observations" class="form-control text-area"
+                            placeholder="Observaciones relacionadas con el operativo"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-lg-offset-9 col-md-offset-8 col-sm-offset-8 col-xs-offset-4">
+                        <button type="button" class="btn btn-success" ng-click="planificaOpCtrl.addOperative()">
+                            <i class="fa fa-check"></i> Guardar</button>
+                        <button type="button" class="btn default">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div> -->
+
+
+<div class="portlet box yellow-casablanca" ng-show="planificaOpCtrl.operatives.length > 0">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fas fa-calendar-alt"></i>Operativos creados</div>
+        <div class="tools">
+            <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+            <a href="javascript:;" class="reload" data-original-title="" title="" ng-click="planificaOpCtrl.initGrid()">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body">
+        <table class="table table-striped table-bordered table-hover order-column" id="sample_1">
+            <thead>
+                <tr>
+                    <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1 text-center" ng-if="planificaOpCtrl.tableConfig.dataToShow.showChecks">
+                        <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                            <input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes" ng-click="planificaOpCtrl.checkAll()" />
+                            <span></span>
+                        </label>
+                    </th>
+                    <th ng-repeat="col in planificaOpCtrl.tableConfig.dataToShow.columns" ng-if="col.visible" ng-click="planificaOpCtrl.sortBy(col.name)"
+                        ng-class="{'text-center' : col.name=='Actions'}">{{::col.title}}
+                        <i class="fas" ng-class="planificaOpCtrl.getIcon(col.name)"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="value in planificaOpCtrl.operatives      
+                track by $index">
+                    <td class="text-center" ng-if="planificaOpCtrl.tableConfig.dataToShow.showChecks">
+                        <label class="mt-checkbox mt-checkbox-outline mt-checkbox-single">
+                            <input type="checkbox" class="checkboxes" ng-checked="planificaOpCtrl.checked" />
+                            <span></span>
+                        </label>
+                    </td>
+                    <td ng-repeat="col in planificaOpCtrl.tableConfig.dataToShow.columns">
+                        <div ng-switch on="col.name">
+                            <div ng-switch-when="Actions" class="text-center">
+                                <button ng-repeat="action in planificaOpCtrl.tableConfig.dataToShow.actions"
+                                    uib-popover={{action.title}} popover-trigger="'mouseenter'" type="button" class="btn green btn-xs"
+                                    ng-click="action.function(value)">
+                                    <i class={{action.icon}}></i></button>
+                            </div>
+                            <div ng-switch-default>
+                                {{planificaOpCtrl.getData(value, col.name)}}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

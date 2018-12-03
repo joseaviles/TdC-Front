@@ -1,0 +1,6 @@
+<ul class="page-breadcrumb breadcrumb">
+    <li ng-repeat="bread in breadCrumbCtrl.breadCrumbs">
+        <a ui-sref="{{bread.link}}">{{bread.title}}</a>
+        <i ng-if="!$last" class="fa fa-circle bread-crumb-circle"></i>
+    </li>
+</ul>

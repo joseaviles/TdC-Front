@@ -1,0 +1,157 @@
+<div class="portlet box" ng-class="::formOpCtrl.config.headerColor">
+    <div class="portlet-title">
+        <div class="caption">
+            <i ng-class="::formOpCtrl.config.icon"></i>{{::formOpCtrl.config.title}} </div>
+        <div class="tools">
+            <a href="javascript:;" ng-click="formOpCtrl.formCollapse()" ng-class="formOpCtrl.formCollapsed ? 'collapse-arrow-up': 'collapse-arrow-down'"
+                data-toggle="collapse" data-target="#input-form"></a>
+            <a href="javascript:;" class="reload" data-original-title="" title="" ng-click="formOpCtrl.init()">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body form collapse in" id="input-form">
+        <form ng-submit="formOpCtrl.submit()" name="formOperativos" class="form-horizontal form-row-seperated">
+            <div class="form-body">
+                <fieldset ng-disabled="formOpCtrl.config.disableControls">
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 col-md-2 col-sm-2" ng-class="{'required-field' : !formOpCtrl.data.selectedState}">Estado:</label>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="input-group">
+                                <ui-select ng-model="formOpCtrl.data.selectedState" theme="bootstrap" required
+                                    ng-disabled="formOpCtrl.config.disableControls">
+                                    <ui-select-match placeholder="Estado">
+                                        {{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="state in (formOpCtrl.states | filter: $select.search) track by state.id">
+                                        <span ng-bind-html="state.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button" ng-click="formOpCtrl.data.selectedState = undefined">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <div ng-if="formOpCtrl.data.operativeId != 0">
+                            <label class="control-label col-lg-2 col-md-2 col-sm-2">Código:</label>
+                            <div class="col-lg-2 col-md-2 col-sm-2">
+                                <div class="input-group">
+                                    <input type="text" ng-model="formOpCtrl.data.operativeId" class="form-control"
+                                        readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 col-md-2 col-sm-2" ng-class="{'required-field' : !formOpCtrl.data.date}">Fecha:</label>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="input-group date date-picker">
+                                <input type="text" class="form-control" uib-datepicker-popup="{{::formOpCtrl.format}}"
+                                    placeholder="Seleccione una fecha" ng-model="formOpCtrl.data.date" is-open="formOpCtrl.opened"
+                                    datepicker-options="formOpCtrl.dateOptions" ng-required="true" current-text="{{::formOpCtrl.currentText}}"
+                                    close-text="{{::formOpCtrl.closeText}}" clear-text="{{::formOpCtrl.clearText}}" />
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button" ng-click="formOpCtrl.open()">
+                                        <i class="fas fa-calendar-alt"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <label class="control-label col-lg-2 col-md-2 col-sm-2" ng-class="{'required-field' : !formOpCtrl.data.selectedLocality}">Localidad:</label>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="input-group">
+                                <ui-select ng-model="formOpCtrl.data.selectedLocality" theme="bootstrap" required
+                                    ng-disabled="formOpCtrl.config.disableControls">
+                                    <ui-select-match placeholder="Localidad">
+                                        {{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="locality in (formOpCtrl.localities | filter: $select.search) track by locality.id">
+                                        <span ng-bind-html="locality.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button" ng-click="formOpCtrl.data.selectedLocality = undefined">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 col-md-2 col-sm-2">Tipo de Ruta:</label>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="input-group">
+                                <ui-select ng-model="formOpCtrl.data.selectedRouteType" theme="bootstrap" ng-disabled="formOpCtrl.config.disableControls">
+                                    <ui-select-match placeholder="Tipo de ruta" reset-search-input="'false'">
+                                        {{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="route in (formOpCtrl.routeTypes | filter: $select.search) track by route.id">
+                                        <span ng-bind-html="route.name | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button" ng-click="formOpCtrl.data.selectedRouteType = undefined">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <label class="control-label col-lg-2 col-md-2 col-sm-2" ng-class="{'required-field' : !formOpCtrl.data.selectedRoute}">Ruta:</label>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="input-group">
+                                <input type="text" ng-model="formOpCtrl.data.selectedRoute" class="form-control"
+                                    placeholder="Ruta Nº" required>
+                                <span class="input-group-btn">
+                                    <button class="btn default" type="button" ng-click="formOpCtrl.data.selectedRoute = undefined">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-2 col-md-2 col-sm-2 time-picker-label">Hora desde:</label>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="input-group">
+                                <div class="time-picker-spinner" uib-timepicker ng-model="formOpCtrl.data.timeFrom"
+                                    hour-step="formOpCtrl.timeOptions.hstep" minute-step="formOpCtrl.timeOptions.mstep"
+                                    show-meridian="formOpCtrl.isMeridian" show-spinners="formOpCtrl.showSpinners"></div>
+                            </div>
+                        </div>
+                        <label class="control-label col-lg-2 col-md-2 col-sm-2 time-picker-label">Hora hasta:</label>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="input-group">
+                                <div class="time-picker-spinner" uib-timepicker ng-model="formOpCtrl.data.timeTo"
+                                    hour-step="formOpCtrl.timeOptions.hstep" minute-step="formOpCtrl.timeOptions.mstep"
+                                    show-meridian="formOpCtrl.isMeridian" show-spinners="formOpCtrl.showSpinners"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group last">
+                        <label class="control-label col-lg-2 col-md-2 col-sm-2">Observaciones:</label>
+                        <div class="col-lg-10 col-md-10 col-sm-10">
+                            <textarea rows="4" ng-model="formOpCtrl.data.observations" class="form-control text-area"
+                                placeholder="Observaciones relacionadas con el operativo"></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="form-actions" ng-if="formOpCtrl.config.showButtons">
+                <div class="row">
+                    <div class="col-lg-offset-8 col-md-offset-8 col-sm-offset-8 col-xs-offset-4">
+                        <button type="{{formOpCtrl.config.button1.type}}" class="{{formOpCtrl.config.button1.class}}"
+                            ng-disabled="{{formOpCtrl.config.button1.disabled}}" ng-show="{{formOpCtrl.config.button1.visible}}">
+                            <i ng-class="formOpCtrl.config.button1.icon"></i>{{formOpCtrl.config.button1.title}}
+                        </button>
+                        <button type="{{formOpCtrl.config.button2.type}}" class="{{formOpCtrl.config.button2.class}}"
+                            ng-disabled="{{formOpCtrl.config.button2.disabled}}" ng-show="{{formOpCtrl.config.button2.visible}}"
+                            ng-click="formOpCtrl.config.button2.action()">
+                            <i ng-class="formOpCtrl.config.button2.icon"></i>{{formOpCtrl.config.button2.title}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
